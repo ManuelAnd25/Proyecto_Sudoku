@@ -11,6 +11,16 @@ Desarrollar una aplicación de escritorio en Java que permita jugar al clásico 
 
 ---
 
+###  Objetivos SMART
+
+| ID | Objetivo SMART                                                                                                   | Tipo    |Métrica                                 | Fecha Límite | Responsable    | Estado  |
+| ------ | --------------------------------------------------------------------------------------------------------- | ----------- | ------------------------------------------- | ---------------- | ------------------ | ----------- |
+| OBJ-01 | Asegurar que el sistema de Sudoku sea capaz de generar tableros válidos para diferentes niveles de dificultad.       | Estratégico | Nº de tableros generados correctamente      | 2025-07-28       | Desarrolladores    | No iniciado |
+| OBJ-02 | Implementar validaciones de jugadas en tiempo real para garantizar que las jugadas sean correctas.                   | Táctico     | % de jugadas validadas correctamente        | 2025-05-31       | Equipo de Calidad  | En progreso |
+| OBJ-03 | Completar el desarrollo de la interfaz gráfica para que sea fácil de usar y permita una experiencia fluida de juego. | Operativo   | Interfaz gráfica completamente implementada | 2025-08-31       | Equipo de Frontend | No iniciado |
+
+---
+
 ###  Requisitos Funcionales
 
 | ID  | Requisito Funcional                                                                 |
@@ -25,30 +35,33 @@ Desarrollar una aplicación de escritorio en Java que permita jugar al clásico 
 
 ###  Requisitos No Funcionales
 
-| ID  | Requisito No Funcional                                                                 |
-|-----|------------------------------------------------------------------------------------------|
-| RNF1 | El sistema debe estar desarrollado en Java utilizando POO.                             |
-| RNF2 | La interfaz (consola o gráfica) debe ser clara e intuitiva.                            |
-| RNF3 | El código debe incluir manejo robusto de errores y excepciones personalizadas.         |
-| RNF4 | Deben implementarse pruebas unitarias con JUnit para métodos clave.                    |
-| RNF5 | El código debe estar correctamente comentado y documentado.                            |
+| ID     | Requisito No Funcional                                                                                                                    |
+| ------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| RNF-01 | El sistema debe garantizar un tiempo de respuesta del servidor inferior a 200 ms para operaciones CRUD de los tableros de Sudoku.             |
+| RNF-02 | El sistema debe soportar al menos 1.000 usuarios concurrentes.                                                                                |
+| RNF-03 | Cumplir con los estándares de seguridad HTTPS/TLS para todas las comunicaciones entre el cliente y el servidor.                               |
+| RNF-04 | La interfaz gráfica debe cumplir con los estándares de accesibilidad WCAG 2.1 AA para garantizar la inclusión de usuarios con discapacidades. |
+| RNF-05 | El sistema debe tener una disponibilidad mínima del 99,5 % mensual, con monitoreo y alertas continuas.                                        |
+| RNF-06 | La página inicial debe cargarse en un tiempo inferior o igual a 1 segundo para garantizar una experiencia de usuario fluida.                  |
+
 
 ---
 
 ##  Matriz de Trazabilidad
 
-| Req. | Clase / Método                    | Tipo de Prueba    | Excepción relacionada                   |
-|------|-----------------------------------|-------------------|------------------------------------------|
-| RF1  | `GeneradorSudoku.generarTablero` | Positiva          | -                                        |
-| RF2  | `Sudoku.colocarNumero`           | Positiva / Negativa| `MovimientoInvalidoException`            |
-| RF3  | `Sudoku.esMovimientoValido`      | Negativa / Borde  | `MovimientoInvalidoException`            |
-| RF4  | `Sudoku.estaResuelto`            | Positiva          | -                                        |
-| RF5  | `JuegoSudoku` / `SudokuGUI`      | Visual / Positiva | `EntradaFueraDeRangoException`           |
-| RNF1 | Código en Java con OOP           | Validación manual | -                                        |
-| RNF2 | Interfaz gráfica (`SudokuGUI`)   | Usabilidad        | -                                        |
-| RNF3 | Excepciones personalizadas       | Pruebas negativas | `SudokuException`, otras personalizadas  |
-| RNF4 | Paquete de pruebas JUnit         | Unitarias         | -                                        |
-| RNF5 | Comentarios y Javadoc            | Revisión manual   | -                                        |
+| Req. ID | Descripción Req.                                                                                                                          | Objetivo(s) | Caso de Uso       | Caso de Prueba                                 |
+| ----------- | --------------------------------------------------------------------------------------------------------------------------------------------- | --------------- | --------------------- | -------------------------------------------------- |
+| RF-01   | Generar tableros de Sudoku válidos con dificultad fácil, media y difícil.                                                                     | OBJ-01, OBJ-02  | C1 (Generar tablero)  | TP-01: Generación de tablero válido                |
+| RF-02   | Permitir al usuario introducir valores en el tablero, excepto en celdas fijas.                                                                | OBJ-02          | C2 (Colocar número)   | TP-02: Colocar número en tablero                   |
+| RF-03   | Validar en tiempo real que los movimientos cumplen las reglas del Sudoku.                                                                     | OBJ-02          | C3 (Verificar jugada) | TP-03: Validación de jugada                        |
+| RF-04   | Verificar automáticamente si el tablero está completamente y correctamente resuelto.                                                          | OBJ-02          | C4 (Mostrar tablero)  | TP-04: Verificar tablero resuelto                  |
+| RF-05   | Mostrar el tablero y mensajes claros desde consola o GUI.                                                                                     | OBJ-03          | C4 (Mostrar tablero)  | TP-05: Visualización del tablero                   |
+| RNF-01  | El sistema debe garantizar un tiempo de respuesta del servidor inferior a 200 ms para operaciones CRUD de los tableros de Sudoku.             | OBJ-02          | C2 (Colocar número)   | TP-06: Prueba de rendimiento para colocar número   |
+| RNF-02  | El sistema debe soportar al menos 1.000 usuarios concurrentes.                                                                                | OBJ-03          | C4 (Mostrar tablero)  | TP-07: Prueba de escalabilidad                     |
+| RNF-03  | Cumplir con los estándares de seguridad HTTPS/TLS para todas las comunicaciones entre el cliente y el servidor.                               | OBJ-03          | C3 (Verificar jugada) | TP-08: Prueba de seguridad HTTPS/TLS               |
+| RNF-04  | La interfaz gráfica debe cumplir con los estándares de accesibilidad WCAG 2.1 AA para garantizar la inclusión de usuarios con discapacidades. | OBJ-03          | C4 (Mostrar tablero)  | TP-09: Auditoría de accesibilidad                  |
+| RNF-05  | El sistema debe tener una disponibilidad mínima del 99,5 % mensual, con monitoreo y alertas continuas.                                        | OBJ-03          | C4 (Mostrar tablero)  | TP-10: Monitoreo de disponibilidad                 |
+| RNF-06  | La página inicial debe cargarse en un tiempo inferior o igual a 1 segundo para garantizar una experiencia de usuario fluida.                  | OBJ-02          | C1 (Generar tablero)  | TP-11: Prueba de tiempo de carga de página inicial |
 
 ---
 
